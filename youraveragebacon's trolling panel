@@ -322,79 +322,75 @@ end
  })
 
  local Tab2 = Window:CreateTab("blade ball", 4483362458) -- Title, Image
- 
- local Section = Tab2:CreateSection("Auto Parry")
+ local Section = Tab2:CreateSection("auto parry")
 
- local Button = Tab:CreateButton({
-    Name = "Auto Clash",
+ local Button = Tab2:CreateButton({
+    Name = "Auto Parry",
     Callback = function()
-        getgenv().Paws = {
-            ["AutoParry"] = true,
-            ["PingBased"] = true,
-            ["PingBasedOffset"] = 0,
-            ["DistanceToParry"] = 0.2,
-            ["BallSpeedCheck"] = true,
-    }
     
-    local Players = game:GetService("Players")
-    local Player = Players.LocalPlayer or Players.PlayerAdded:Wait()
-    local ReplicatedPaw = game:GetService("ReplicatedStorage")
-    
-    local Paws = ReplicatedPaw:WaitForChild("Remotes", 9e9)
-    local PawsBalls = workspace:WaitForChild("Balls", 9e9)
-    local PawsTable = getgenv().Paws
-    
-    local function IsTheTarget()
-            return Player.Character:FindFirstChild("Highlight")
-    end
-    
-    local function FindBall()
-        local RealBall
-        for i, v in pairs(PawsBalls:GetChildren()) do
-            if v:GetAttribute("realBall") == true then
-                RealBall = v
+ getgenv().Paws = {
+         ["AutoParry"] = true,
+         ["PingBased"] = true,
+         ["PingBasedOffset"] = 0,
+         ["DistanceToParry"] = 0.2,
+         ["BallSpeedCheck"] = true,
+ }
+ 
+ local Players = game:GetService("Players")
+ local Player = Players.LocalPlayer or Players.PlayerAdded:Wait()
+ local ReplicatedPaw = game:GetService("ReplicatedStorage")
+ 
+ local Paws = ReplicatedPaw:WaitForChild("Remotes", 9e9)
+ local PawsBalls = workspace:WaitForChild("Balls", 9e9)
+ local PawsTable = getgenv().Paws
+ 
+ local function IsTheTarget()
+         return Player.Character:FindFirstChild("Highlight")
+ end
+ 
+ local function FindBall()
+     local RealBall
+     for i, v in pairs(PawsBalls:GetChildren()) do
+         if v:GetAttribute("realBall") == true then
+             RealBall = v
+         end
+     end
+     return RealBall
+ end
+ 
+ game:GetService("RunService").PreRender:connect(function()
+         if not FindBall() then 
+                 return
+         end
+         local Ball = FindBall()
+         
+         local BallPosition = Ball.Position
+         
+         local BallVelocity = Ball.AssemblyLinearVelocity.Magnitude
+         
+         local Distance = Player:DistanceFromCharacter(BallPosition)
+         
+         local Ping = BallVelocity * (game.Stats.Network.ServerStatsItem["Data Ping"]:GetValue() / 1000)
+         
+         if PawsTable.PingBased then
+         Distance -= Ping + PawsTable.PingBasedOffset
+         end
+         
+         if PawsTable.BallSpeedCheck and BallVelocity == 0 then return
+         end
+         
+         if (Distance / BallVelocity) <= PawsTable.DistanceToParry and IsTheTarget() and PawsTable.AutoParry then
+                Paws:WaitForChild("ParryButtonPress"):Fire()
             end
-        end
-        return RealBall
-    end
-    
-    game:GetService("RunService").PreRender:connect(function()
-            if not FindBall() then 
-                    return
-            end
-            local Ball = FindBall()
-            
-            local BallPosition = Ball.Position
-            
-            local BallVelocity = Ball.AssemblyLinearVelocity.Magnitude
-            
-            local Distance = Player:DistanceFromCharacter(BallPosition)
-            
-            local Ping = BallVelocity * (game.Stats.Network.ServerStatsItem["Data Ping"]:GetValue() / 1000)
-            
-            if PawsTable.PingBased then
-            Distance -= Ping + PawsTable.PingBasedOffset
-            end
-            
-            if PawsTable.BallSpeedCheck and BallVelocity == 0 then return
-            end
-            
-            if (Distance / BallVelocity) <= PawsTable.DistanceToParry and IsTheTarget() and PawsTable.AutoParry then
-                   Paws:WaitForChild("ParryButtonPress"):Fire()
-               end
-    end)
-       end,
+ end)
     end,
  })
  
- local Section = Tab2:CreateSection("Auto Clash")
- 
- local Button = Tab:CreateButton({
+ local Section = Tab:CreateSection("auto clash")
+
+ local Button = Tab2:CreateButton({
     Name = "Auto Clash",
     Callback = function()
     loadstring(game:HttpGet("https://pastebin.com/raw/t2391h1A"))()
     end,
  })
-
-
- 
