@@ -1,0 +1,91 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Window = Rayfield:CreateWindow({
+    Name = "youraveragebacon's trolling panel",
+    LoadingTitle = "youraveragebacon's Trolling Panel",
+    LoadingSubtitle = "by youraveragebacon",
+    ConfigurationSaving = {
+       Enabled = true,
+       FolderName = nil, -- Create a custom folder for your hub/game
+       FileName = "TrollPanel"
+    },
+    Discord = {
+       Enabled = false,
+       Invite = "CBDp2jbvf4", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+    },
+    KeySystem = false, -- Set this to true to use our key system
+    KeySettings = {
+       Title = "Untitled",
+       Subtitle = "Key System",
+       Note = "No method of obtaining the key is provided",
+       FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+    }
+ })
+
+
+ local Tab = Window:CreateTab("normal trolls", 4483362458) -- Title, Image
+ 
+ local Section = Tab:CreateSection("spin script!")
+ 
+ local Button = Tab:CreateButton({
+    Name = "spin",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:WaitForChild("Humanoid")
+        
+        local speed = 100 -- Adjust the speed of the spin
+        
+        local function spinCharacter()
+            while true do
+                for angle = 0, 360, speed do
+                    character:SetPrimaryPartCFrame(character.PrimaryPart.CFrame * CFrame.Angles(0, math.rad(speed), 0))
+                    wait()
+                end
+            end
+        end
+        
+        spinCharacter()
+        
+    end,
+ })
+
+ local Section = Tab:CreateSection("teleport to all")
+
+ local Button = Tab:CreateButton({
+    Name = "TP to all loop unstoppable",
+    Callback = function()
+    
+wait(1)
+while wait() do
+
+-- Function to teleport the script's owner to a specific player's location
+local function teleportOwnerToPlayer(player)
+    local owner = game.Players.LocalPlayer
+    if owner and player ~= owner then
+        local targetPosition = player.Character and player.Character.PrimaryPart and player.Character.PrimaryPart.Position
+        if targetPosition then
+            owner.Character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
+        else
+            warn("Target player's character is missing PrimaryPart or is not loaded.")
+        end
+    end
+end
+
+-- Function to teleport the script's owner to all players in the game
+local function teleportOwnerToAllPlayers()
+    local players = game.Players:GetPlayers()
+    for _, player in ipairs(players) do
+        teleportOwnerToPlayer(player)
+        wait(1) -- Wait for a second before teleporting to the next player
+    end
+end
+
+-- Teleport the script's owner to all players in the game
+teleportOwnerToAllPlayers()
+end
+    end,
+ })
