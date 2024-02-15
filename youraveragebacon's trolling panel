@@ -322,7 +322,8 @@ end
  })
 
  local Tab2 = Window:CreateTab("blade ball", 4483362458) -- Title, Image
- local Section = Tab2:CreateSection("Auto CLash")
+ 
+ local Section = Tab2:CreateSection("Auto Parry")
 
  local Button = Tab:CreateButton({
     Name = "Auto Clash",
@@ -383,10 +384,11 @@ end
                end
     end)
        end,
-    })
     end,
  })
-
+ 
+ local Section = Tab2:CreateSection("Auto Clash")
+ 
  local Button = Tab:CreateButton({
     Name = "Auto Clash",
     Callback = function()
