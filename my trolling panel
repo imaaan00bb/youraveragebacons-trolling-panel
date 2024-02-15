@@ -90,6 +90,7 @@ end
     end,
  })
 
+ local Section = Tab:CreateSection("Fling")
 
  local Button = Tab:CreateButton({
     Name = "fling work in progress",
