@@ -381,9 +381,6 @@ end
          
          if (Distance / BallVelocity) <= PawsTable.DistanceToParry and IsTheTarget() and PawsTable.AutoParry then
                 Paws:WaitForChild("ParryButtonPress"):Fire()
-            end
- end)
-    end,
  })
  
  local Section = Tab:CreateSection("auto clash")
