@@ -89,3 +89,27 @@ teleportOwnerToAllPlayers()
 end
     end,
  })
+
+
+ local Button = Tab:CreateButton({
+    Name = "fling work in progress",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:WaitForChild("Humanoid")
+        
+        local speed = 1000 -- Adjust the speed of the spin
+        
+        local function spinCharacter()
+            while true do
+                for angle = 0, 360, speed do
+                    character:SetPrimaryPartCFrame(character.PrimaryPart.CFrame * CFrame.Angles(0, math.rad(speed), 0))
+                    wait()
+                end
+            end
+        end
+        
+        spinCharacter()
+        
+    end,
+ })
