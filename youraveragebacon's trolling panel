@@ -321,7 +321,6 @@ end
     end,
  })
 
- local Tab2 = Window:CreateTab("blade ball", 4483362458) -- Title, Image
  local Section = Tab:CreateSection("auto parry")
 
  local Button = Tab:CreateButton({
