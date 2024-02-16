@@ -387,4 +387,7 @@ end)
     Callback = function(infinitejumpenabled)
         local infinitejumpenabled = true
 game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'humanoid':ChangeState("jumping")
+    end
+end)
+end,
  })
