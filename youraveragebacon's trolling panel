@@ -33,7 +33,8 @@ local Window = Rayfield:CreateWindow({
  local Toggle = Tab:CreateToggle({
     Name = "Spin",
     CurrentValue = false,
-    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Flag = "StartSpin", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+local StartSpin   
     Callback = function(Value)
         local function teleportToRealBall()
             local realBall = workspace:FindFirstChild("realBall")
